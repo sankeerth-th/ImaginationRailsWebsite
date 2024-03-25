@@ -1,0 +1,91 @@
+<style>
+  .hogwarts-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+
+  .hogwarts-table th, .hogwarts-table td {
+    padding: 10px;
+    text-align: left;
+    border: 1px solid #DDD;
+  }
+
+  .hogwarts-table th {
+    background-color: #7c3f2d;
+    color: white;
+  }
+
+  .hogwarts-table tr:nth-child(even) {
+    background-color: #f4e3be;
+  }
+
+  .view-link {
+    color: #2b1d0e;
+    background-color: #f1b765;
+    padding: 6px 12px;
+    text-decoration: none;
+    border-radius: 4px;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+  }
+
+  .view-link:hover {
+    background-color: #eaa54e;
+  }
+
+  .shop-more-link {
+    color: #2b1d0e;
+    background-color: #a1887f; /* Different color for distinction */
+    padding: 6px 12px;
+    text-decoration: none;
+    border-radius: 4px;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+    display: inline-block;
+    margin-top: 20px;
+  }
+
+  .shop-more-link:hover {
+    background-color: #8d6e63;
+  }
+</style>
+
+<h1>Order History</h1>
+
+<% if @orders.empty? %>
+  <p>You have no orders.</p>
+  <%= link_to 'More Shopping?', potions_path, class: 'shop-more-link' %> <!-- Adjust the link as needed -->
+  
+<% else %>
+  <table class="hogwarts-table">
+    <thead>
+      <tr>
+        <th>Order ID</th>
+        <th>Total</th>
+        <th>Status</th>
+        <th>Card (Last 4 Digits)</th>
+        <th>Ordered On</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @orders.each do |order| %>
+        <tr>
+          <td><%= order.id %></td>
+          <td><%= number_to_currency(order.total) %></td>
+          <td><%= order.status %></td>
+          <td><%= order.card_number.last(4) if order.card_number.present? %></td>
+          <td><%= order.created_at.strftime("%d %b %Y") %></td>
+          <td>
+            <%= link_to 'View', order_path(order), class: 'view-link' %>
+            <!-- Add more actions as needed -->
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<%= link_to 'More Shopping?', potions_path, class: 'shop-more-link' %> <!-- Adjust the link as needed -->
+<% end %>
+
+

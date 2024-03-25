@@ -1,0 +1,36 @@
+<%= stylesheet_link_tag 'brewhub_show', media: 'all', 'data-turbolinks-track': 'reload' %>
+<div class="post-details-container">
+  <h1 class="post-title"><%= @post.title %></h1>
+  <p class="post-content"><%= @post.content %></p>
+
+  <% if @post.user == current_user %>
+    <%= link_to 'Edit', edit_brew_hub_post_path(@post), class: 'btn btn-edit' %>
+  <% end %>
+
+  <div class="comments-section">
+    <h3>Comments</h3>
+    <div class="comments-list">
+      <% @replies.each do |reply| %>
+        <div class="comment">
+          <p class="comment-user"><%= reply.user.email %></p>
+          <p class="comment-body"><%= reply.body %></p>
+          <% if reply.user == current_user %>
+            <div class="comment-actions">
+              <%= link_to 'Edit', comment_path(reply), class: 'btn btn-edit btn-sm' %>
+              <%= button_to 'Delete', comment_path(reply), method: :delete, data: { turbo: false }, class: 'btn btn-delete btn-sm', form: { class: 'd-inline' } %>
+            </div>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+
+    <div class="reply-form">
+      <%= bootstrap_form_with model: @comment, url: new_comment_path(@post), method: :post, data: { turbo: false } do |form| %>
+        <%= form.text_area :body, rows: 2, class: 'form-control' %>
+        <%= form.submit 'Add Comment', class: 'btn btn-add-comment my-3' %>
+      <% end %>
+    </div>
+  </div>
+
+  <%= link_to 'Back to Brew Hub', brew_hub_path, class: 'btn btn-back' %>
+</div>

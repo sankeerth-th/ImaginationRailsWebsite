@@ -1,0 +1,45 @@
+<!-- carts/show.html.erb -->
+<div class="cart-container">
+  <h1>Your Cart</h1>
+
+  <% if @cart.cart_items.any? %>
+    <table class="cart-table">
+      <thead>
+        <tr>
+          <th>Potion</th>
+          <th>Description</th>
+          <th>Quantity</th>
+          <th>Price</th>
+          <th>Total</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @cart.cart_items.each do |item| %>
+          <tr>
+            <td><%= item.potion.name %></td>
+            <td><%= truncate(item.potion.effect, length: 50) %></td>
+            <td>
+              <%= form_with url: update_cart_item_path(item), method: :patch, local: true do |form| %>
+                <%= form.number_field :quantity, value: item.quantity, min: 1, class: 'quantity-input' %>
+                <%= form.submit "Update", class: 'update-quantity-button' %>
+              <% end %>
+            </td>
+            <td><%= number_to_currency(item.potion.price) %></td>
+            <td><%= number_to_currency(item.quantity * item.potion.price) %></td>
+            <td>
+              <%= link_to 'Show Details', cart_item_path(item), class: 'show-details-link' %>
+              <%= button_to 'Remove', cart_item_path(item), method: :delete, data: { confirm: 'Are you sure?' }, class: 'remove-item-link' %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+    <div class="cart-total">
+      <h3>Total: <%= number_to_currency(@cart.cart_items.sum { |item| item.quantity * item.potion.price }) %></h3>
+      <%= link_to 'Proceed to Payment', new_order_path, class: 'proceed-to-payment-button' %>
+    </div>
+  <% else %>
+    <p>Your cart is empty.</p>
+  <% end %>
+</div>

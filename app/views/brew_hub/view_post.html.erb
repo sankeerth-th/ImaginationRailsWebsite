@@ -1,0 +1,17 @@
+<div class="post-view">
+  <h2><%= @post.title %></h2>
+  <p><%= @post.content %></p>
+
+ 
+
+  <h3>Replies</h3>
+  <% @replies.each do |reply| %>
+    <div class="reply">
+      <p><%= reply.user.email %>: <%= reply.body %></p>
+    </div>
+  <% end %>
+
+  <p>
+  <%= link_to 'Back', brew_hub_path, class: 'btn btn-back' %>
+</p>
+</div>

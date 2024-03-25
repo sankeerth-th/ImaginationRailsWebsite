@@ -1,0 +1,108 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS (and SCSS, if configured) file within this directory, lib/assets/stylesheets, or any plugin's
+ * vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ */
+
+// Custom bootstrap variables must be set or imported *before* bootstrap.
+@import "darkly/variables";
+@import "bootstrap";
+@import "darkly/bootswatch";
+
+@import "rails_bootstrap_forms";
+@import "dashboard";
+@import "new-potion";
+@import "potions";
+@import "potion_show";
+@import "brewhub_show";
+@import "brewhub";
+@import "brewhub-new-post";
+@import "cart";
+@import "cart_items";
+@import "homepage";
+@import "contest_entries";
+label.required:after {
+  content:" *";
+}
+
+main {
+  margin-top: 20px;
+}
+
+.alert-dismissible {
+  padding-left: $alert-dismissible-padding-r;
+}
+
+/* Dropdown Button */
+/* Dropdown Button */
+.dropbtn {
+  background-color: #1a001a;
+  color: #f8f8f8;
+  padding: 10px 15px;
+  font-size: 16px; /* Adjust to match other items */
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+  margin-left: 10px; /* Adjust as necessary for alignment */
+  align-self: center; /* Align vertically */
+}
+
+.dropbtn:hover, .dropbtn:focus {
+  background-color: #330033;
+}
+
+
+/* Dropdown content (hidden by default) */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+/* Links inside the dropdown */
+/* Dropdown content */
+.dropdown-content a {
+  color: #f8f8f8; /* Light color for text */
+  background-color: #1a001a; /* Same as navbar background for consistency */
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-content a:hover {
+  background-color: #330033; /* Slightly different shade on hover */
+}
+
+
+/* Show the dropdown menu on hover */
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+/* Style the dropdown container */
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.cart-count {
+  display: inline-block;
+  background-color: #ff0000; // Red background for visibility
+  color: white;
+  border-radius: 50%; // Circular badge
+  padding: 2px 6px;
+  font-size: 12px;
+  margin-left: 4px;
+  vertical-align: top;
+}
+

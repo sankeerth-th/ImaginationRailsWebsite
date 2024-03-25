@@ -1,0 +1,184 @@
+<style>
+  .contests-page {
+    font-family: 'Cormorant', serif;
+    color: #301934;
+    background-color: #fff5e5;
+  }
+
+  .card {
+    background: #f4e3be;
+    border: 1px solid #8e6e53;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  .card-body, .card-footer {
+    background-color: transparent;
+  }
+
+  .card-title {
+    color: #5D4037;
+  }
+    .card-img-container {
+    width: 160px; /* Fixed width */
+    height: 160px; /* Fixed height to make the image square */
+    margin: 10px auto; /* Centering the image container */
+    overflow: hidden; /* Hide parts of the image that overflow */
+  }
+
+  .card-img-top {
+    width: 100%; /* Make the image take the full width of the container */
+    height: auto; /* Adjust height automatically */
+    display: block; /* Ensures the image is a block level element */
+    object-fit: cover; /* Ensures the image covers the container */
+    margin: auto; /* Center the image if it's not square */
+  }
+
+
+  .card-text, .text-body-secondary {
+    color: #666;
+  }
+
+  .btn-primary, .btn-success {
+    background-color: #7c3f2d;
+    border-color: #5d2e1f;
+    color: white;
+  }
+
+  .btn-primary:hover, .btn-success:hover {
+    background-color: darken(#7c3f2d, 10%);
+    border-color: darken(#5d2e1f, 10%);
+  }
+
+  .btn-sm {
+    padding: 5px 10px;
+    font-size: 0.875rem;
+  }
+.joined-contests-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* Adjust the minmax values as needed */
+    grid-gap: 20px; /* Space between cards */
+    padding: 20px;
+  }
+
+  .joined-contest-card {
+    background: #f4e3be;
+    border: 1px solid #8e6e53;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .joined-contest-image {
+    width: 100px; /* Fixed width */
+    height: 100px; /* Fixed height */
+    object-fit: cover;
+    border-radius: 10px;
+    margin: 0 auto 10px; /* Center the image with margin */
+  }
+
+  .contest-entry-details {
+    text-align: center;
+  }
+
+
+  .joined-card-footer {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  /* Adjusted hover colors for buttons */
+  .btn-secondary:hover, .btn-primary:hover {
+    background-color: #94785e; /* New hover color */
+  }
+
+  .contest-card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 10px;
+  }
+
+  .btn-footer {
+    margin: 0; /* Reset margin for buttons */
+    flex-grow: 0; /* Prevent buttons from stretching */
+  }
+
+  .btn-secondary, .btn-primary {
+    /* Button styling */
+    background-color: #7c3f2d;
+    border-color: #5d2e1f;
+    color: white;
+    padding: 5px 10px;
+    text-decoration: none;
+    border-radius: 4px;
+    font-size: 0.875rem;
+    flex-grow: 0; /* Prevent buttons from stretching */
+  }
+
+  /* Adjusted hover colors for buttons */
+  .btn-secondary:hover, .btn-primary:hover {
+    background-color: #94785e; /* New hover color */
+  }
+
+  
+</style>
+
+<div class="contests-page">
+  <p style="color: green"><%= notice %></p>
+
+  <h1>Contests</h1>
+  <div class="row row-cols-1 row-cols-md-4 g-4" id="contests">
+    <% @contests.each do |contest| %>
+      <div class="col">
+        <div class="card h-100">
+          <% if contest.image.attached? %>
+            <div class="card-img-container">
+              <%= image_tag contest.image, class: 'card-img-top' %>
+            </div>
+          <% end %>
+          <div class="card-body">
+            <h5 class="card-title"><%= contest.title %></h5>
+            <p class="card-text"><%= contest.desc %></p>
+          </div>
+          <div class="card-footer">
+            <small class="text-body-secondary">Ends: <%= contest.end_date %></small>
+            
+                <%= link_to 'View Contest', contest, class: 'btn btn-primary' %>
+                <%= link_to 'View Entries', contest_entries_path(contest), class: 'btn btn-primary' %>
+              
+          </div>    
+        </div>
+      </div>
+    <% end %>
+  </div>
+<br>
+<% if user_signed_in? and current_user.vendor%>
+  <div>
+    <%= link_to "New contest", new_contest_path, class: 'btn btn-success btn-sm' %>
+  </div>
+<% end %>
+<% if user_signed_in? %>
+<h2>Joined Contests</h2>
+  <div class="joined-contests-container">
+    <% current_user.contest_entries.each do |entry| %>
+      <% contest = entry.contest %>
+      <div class="joined-contest-card">
+        <div class="contest-entry-details">
+          <% if entry.image.attached? %>
+            <%= image_tag entry.image, class: 'joined-contest-image' %>
+          <% end %>
+          <h5 class="card-title"><%= contest.title %> - <%= entry.potion_name %></h5>
+          <p class="card-text"><%= entry.description %></p>
+        </div>
+        <div class="contest-card-footer">
+          <%= link_to 'View Your Submission', contest_contest_entry_path(contest, entry), class: 'btn btn-secondary btn-sm btn-footer' %>
+          <%= link_to 'View Contest', contest, class: 'btn btn-secondary btn-sm btn-footer' %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+<% end %>

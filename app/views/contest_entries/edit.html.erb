@@ -1,0 +1,64 @@
+<style>
+  .contest-entry-form {
+    background-color: #fff8e1;
+    padding: 20px;
+    border-radius: 10px;
+    max-width: 600px;
+    margin: auto;
+  }
+
+  .contest-entry-form label {
+    font-weight: bold;
+    color: #5D4037;
+    display: block;
+    margin-top: 10px;
+  }
+
+  .contest-entry-form textarea, .contest-entry-form select, .contest-entry-form input[type="file"] {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    border: 1px solid #DDD;
+    border-radius: 4px;
+  }
+
+  .contest-entry-form input[type="submit"] {
+    background-color: #7c3f2d;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 20px;
+    font-weight: bold;
+  }
+
+  .contest-entry-form input[type="submit"]:hover {
+    background-color: darken(#7c3f2d, 10%);
+  }
+</style>
+
+<% if @contest_entry.errors.any? %>
+  <div id="error_explanation">
+    <h2><%= pluralize(@contest_entry.errors.count, "error") %> prohibited this contest entry from being saved:</h2>
+    <ul>
+      <% @contest_entry.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<div class="contest-entry-form">
+  <%= form_with model: @contest_entry, url: contest_entry_path(@contest, @contest_entry), method: :patch, local: true do |form| %>
+  <%= form.label :potion_name, 'Potion Name' %>
+  <%= form.text_field :potion_name %>
+
+  <%= form.label :description, 'Potion Description' %>
+  <%= form.text_area :description %>
+
+  <%= form.label :image, 'Image File' %>
+  <%= form.file_field :image %>
+
+  <%= form.submit "Submit Potion" %>
+<% end %>

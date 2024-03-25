@@ -1,0 +1,65 @@
+/* app/assets/stylesheets/cart.css */
+.cart-container {
+    background-color: #f1e9d2; /* Parchment-like background */
+    color: #1c1208; /* Dark text for contrast */
+    padding: 20px;
+    border-radius: 8px;
+    max-width: 800px;
+    margin: auto;
+
+
+    .show-details-link, .remove-item-button {
+        display: inline-block;
+        padding: 5px 10px;
+        margin-right: 10px;
+        text-decoration: none;
+        color: white;
+        border-radius: 4px;
+        text-align: center;
+        font-size: 14px;
+      }
+    
+      .show-details-link {
+        background-color: #007bff; // Blue color for "Show Details"
+      }
+    
+      .remove-item-button {
+        background-color: #dc3545; // Red color for "Remove"
+        border: none; // Remove default button border
+      }
+      
+  }
+  
+  .cart-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .cart-table th, .cart-table td {
+    border: 1px solid #3e3933;
+    padding: 8px;
+    text-align: left;
+  }
+  
+  .cart-table th {
+    background-color: #3e3933;
+    color: #f1e9d2;
+  }
+  
+  .cart-total {
+    text-align: right;
+    margin-top: 15px;
+
+
+  }
+
+  .proceed-to-payment-button {
+    display: inline-block;
+    padding: 10px 15px;
+    background-color: #28a745;
+    color: white;
+    border-radius: 4px;
+    text-decoration: none;
+    margin-top: 20px;
+  }
+  

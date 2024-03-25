@@ -1,0 +1,119 @@
+<style>
+  .order-container {
+    font-family: Arial, sans-serif;
+    color: #333;
+  }
+
+  .order-container h1, .order-container h2 {
+    color: #5D4037;
+  }
+
+  .ordered-items .item {
+    background-color: #FFF8E1;
+    border: 1px solid #DDD;
+    padding: 10px;
+    margin-bottom: 10px;
+  }
+
+  .ordered-items h3 {
+    color: #BF360C;
+  }
+
+  .payment-details {
+    background-color: #f4e3be;
+    padding: 20px;
+    margin-top: 20px;
+    border: 1px solid #DDD;
+  }
+
+  .payment-details .field {
+    margin-bottom: 15px;
+  }
+
+  .place-order-button {
+    background-color: #FFAB91;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+  }
+
+  .place-order-button:hover {
+    background-color: #FF8A65;
+  }
+
+  .back-to-cart-button {
+    background-color: #8E6E53; /* A darker shade for distinction */
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+    margin-right: 10px; /* Add some space between buttons */
+  }
+
+  .back-to-cart-button:hover {
+    background-color: #6D4C41;
+  }
+</style>
+
+<div class="order-container">
+  <h1>Review Your Order</h1>
+
+  <div class="ordered-items">
+    <% @cart.cart_items.each do |item| %>
+      <div class="item">
+        <h3><%= item.potion.name %></h3>
+        <p>Price: <%= number_to_currency(item.potion.price) %></p>
+        <p>Quantity: <%= item.quantity %></p>
+        <p>Total: <%= number_to_currency(item.quantity * item.potion.price) %></p>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="payment-details">
+    <h2>Payment Details</h2>
+
+    <%= form_for @order do |f| %>
+      <% if @order.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@order.errors.count, "error") %> prohibited this order from being saved:</h2>
+          <ul>
+            <% @order.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <div class="field">
+        <%= f.label :shipping_address, "Shipping Address" %>
+        <%= f.text_area :shipping_address, rows: 4 %>
+      </div>
+
+      <div class="field">
+        <%= f.label :card_number, "Card Number" %>
+        <%= f.text_field :card_number, pattern: "\\d{16}", maxlength: 16, placeholder: "1234 5678 9012 3456", required: true %>
+      </div>
+
+      <div class="field">
+        <%= f.label :expiry_date, "Expiry Date" %>
+        <%= f.date_field :expiry_date, min: Date.today.next_year.strftime("%Y-%m"), required: true %>
+      </div>
+
+      <div class="field">
+        <%= f.label :cvv, "CVV" %>
+        <%= f.number_field :cvv, maxlength: 4, pattern: "\\d{3,4}", placeholder: "123", required: true %>
+      </div>
+
+      <%= link_to 'Back to Cart', cart_path, class: 'back-to-cart-button' %>
+
+      <%= f.submit "Place Order", class: "place-order-button" %>
+    <% end %>
+  </div>
+</div>

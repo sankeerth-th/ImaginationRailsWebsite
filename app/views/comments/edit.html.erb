@@ -1,0 +1,11 @@
+<h1 class="my-4">Edit Comment</h1>
+
+<%= bootstrap_form_with model: @comment, url: comment_path(@comment), method: :patch, data: { turbo: false } do |form| %>
+  <%= form.text_area :body, rows: 16 %>
+  <%= form.submit class: 'btn btn-primary my-3' %>
+<% end %>
+
+<p>
+  <%= link_to 'Back', brew_hub_post_path(@comment.post), class: 'btn btn-outline-primary' %>
+</p>
+

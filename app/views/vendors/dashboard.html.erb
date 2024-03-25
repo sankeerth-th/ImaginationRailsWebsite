@@ -1,0 +1,71 @@
+<div class="vendor-dashboard">
+  <h1>Vendor Dashboard</h1>
+
+  <h2>My Potions</h2>
+
+  <div class="table-container">
+    <table class="potions-table">
+      <thead>
+        <tr>
+          <th>Image</th>
+          <th>Name</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @potions.each do |potion| %>
+          <tr>
+            <td class="potion-image-cell">
+              <% if potion.images.attached? %>
+                <%= image_tag potion.images.first, class: "potion-table-image" %>
+              <% end %>
+            </td>
+            <td><%= link_to potion.name, nil %></td>
+            <td class="actions-cell">
+              <%= link_to 'Edit', edit_potion_path(potion), class: "edit-btn" %>
+              <%= button_to 'Remove', potion, method: :delete, data: { confirm: 'Are you sure?' }, class: "remove-btn" %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="add-new-potion">
+    <%= link_to 'Add New Potion', new_potion_path, class: "add-potion-btn" %>
+  </div>
+
+<h2>Orders for My Potions</h2>
+
+<% if @orders.empty? %>
+  <p>No orders yet.</p>
+<% else %>
+  <table>
+    <thead>
+      <tr>
+        <th>Order ID</th>
+        <th>Customer Email</th>
+        <th>Total</th>
+        <th>Status</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @orders.each do |order| %>
+        <tr>
+          <td><%= order.id %></td>
+          <td><%= order.user.email %></td>
+          <td><%= number_to_currency(order.total) %></td>
+          <td><%= order.status || "Pending" %></td>
+          <td>
+            <%= form_with url: mark_as_shipped_order_path(order), method: :patch do %>
+  <%= submit_tag 'Mark as Shipped' %>
+<% end %>
+            <%= button_to 'Cancel', cancel_order_path(order), method: :patch %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>
+</div>

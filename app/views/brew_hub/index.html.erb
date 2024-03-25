@@ -1,0 +1,37 @@
+<%= stylesheet_link_tag 'brewhub', media: 'all', 'data-turbolinks-track': 'reload' %>
+
+<div class="brewhub-posts">
+  <h1>Brew Hub Posts</h1>
+
+  <% @posts.each do |post| %>
+    <div class="post-card">
+      <h2 class="post-title"><%= post.title %></h2>
+      <% if post.image.attached? %>
+        <%= image_tag post.image.variant(resize_to_limit: [100, 100]), class: 'post-image' %>
+      <% end %>
+      <p class="post-content"><%= post.content %></p>
+
+      <div class="latest-replies">
+        <h3>Latest Replies</h3>
+        <% post.comments.last(3).each do |comment| %>
+          <div class="comment">
+            <p><strong><%= comment.user.email %>:</strong> <%= comment.body %></p>
+          </div>
+        <% end %>
+      </div>
+
+
+
+      <%= link_to 'View Post', brew_hub_post_path(post), class: 'btn btn-view' %>
+      <% if user_signed_in? %>
+        <%= link_to 'Reply', brew_hub_post_path(post), class: 'btn btn-reply' %>
+      <% end %>
+      <% if post.user == current_user %>
+        <%= link_to 'Edit', edit_brew_hub_post_path(post), class: 'btn btn-edit' %>
+        <%= button_to 'X', delete_brew_hub_post_path(post), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn-delete-post' %>
+      <% end %>
+    </div>
+  <% end %>
+
+  <%= link_to 'Add New Post', new_brew_hub_post_path, class: 'btn btn-add-new' %>
+</div>

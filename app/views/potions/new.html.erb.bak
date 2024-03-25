@@ -1,0 +1,36 @@
+<h1>Add New Potion</h1>
+
+<%= form_with(model: @potion, url: potions_path, local: true, multipart: true) do |form| %>
+  <% if @potion.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@potion.errors.count, "error") %> prohibited this potion from being saved:</h2>
+      <ul>
+        <% @potion.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :name %>
+    <%= form.text_field :name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :effect %>
+    <%= form.text_field :effect %>
+  </div>
+
+  <!-- Include other potion fields here -->
+
+  <div class="field">
+    <%= form.label :images %>
+    <%= form.file_field :images, multiple: true, accept: "image/jpeg,image/gif,image/png" %>
+    <small>Allowed formats: jpg, gif, png</small>
+  </div>
+
+  <div class="actions">
+    <%= form.submit "Save Potion" %>
+  </div>
+<% end %>

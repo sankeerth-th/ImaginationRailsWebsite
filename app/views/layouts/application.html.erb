@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Hogwarts Potion Kart</title>
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <%= stylesheet_link_tag 'application', media: 'all', 'data-turbo-track': 'reload' %>
+  <%= javascript_include_tag 'application', 'data-turbo-track': 'reload' %>
+  
+  <style>
+    body {
+      background: #fff5e5 url('parchment_texture.jpg') repeat;
+      font-family: 'Cormorant', serif;
+      color: #301934;
+    }
+    .card{
+      background: #fff5e5;
+      font-family: 'Cormorant', serif;
+      color: #301934;
+    }
+    .card-footer{
+      background: #fff5e5;
+      font-family: 'Cormorant', serif;
+      color: #301934;
+    }
+    .card-body{
+      background: #fff5e5;
+      font-family: 'Cormorant', serif;
+      color: #301934;
+    }
+    .card-columns {
+      @include media-breakpoint-only(lg) {
+      column-count: 4;
+      }
+      @include media-breakpoint-only(sm) {
+        column-count: 2;
+      }
+    }
+    #destroy-btn-groupd {
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+    }
+    .navbar {
+      background-color: #1a001a;
+      color: #f8f8f8;
+      padding: 10px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .menu-lines {
+      cursor: pointer;
+      font-size: 24px;
+    }
+    .navbar ul {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      width: 100%;
+      background-color: #1a001a;
+    }
+    .navbar li {
+      padding: 10px 20px;
+    }
+    .navbar a, .nav-link {
+      color: #f8f8f8;
+      text-decoration: none;
+      font-size: 18px;
+      margin-left: 20px;
+    }
+    .right-nav {
+      display: flex;
+      align-items: center;
+    }
+    #search-bar {
+      padding: 8px;
+      font-size: 16px;
+      margin-right: 20px;
+      border: none;
+      background: rgba(255, 255, 255, 0.5);
+      border-radius: 4px;
+
+    }
+
+    .account-dropbtn {
+  background-color: #1a001a;
+  color: #f8f8f8;
+  padding: 10px 15px;
+  font-size: 16px; /* Adjust to match other items */
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+  margin-left: 10px; /* Adjust as necessary for alignment */
+  align-self: center; /* Align vertically */
+}
+
+.account-dropbtn:hover, .account-dropbtn:focus {
+  background-color: #330033;
+}
+
+
+/* Dropdown content (hidden by default) */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+/* Links inside the dropdown */
+/* Dropdown content */
+.dropdown-content a {
+  color: #f8f8f8; /* Light color for text */
+  background-color: #1a001a; /* Same as navbar background for consistency */
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-content a:hover {
+  background-color: #330033; /* Slightly different shade on hover */
+}
+
+
+/* Show the dropdown menu on hover */
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+/* Style the dropdown container */
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+  </style>
+</head>
+<body>
+  <div class="navbar">
+    <div class="menu-lines" onclick="toggleMenu()">☰</div>
+    <ul id="menu">
+      <div class="dropdown">
+      <button class="dropbtn">Account</button>
+      <div class="dropdown-content">
+        <% if user_signed_in? %>
+          <%= link_to 'User Account', root_path %>
+          <% if current_user.try(:vendor) %>
+            <%= link_to 'Vendor Dashboard', vendor_dashboard_path %>
+          <% else %>
+            <%= link_to 'Become a Vendor', new_vendor_path %>
+          <% end %>
+        <% else %>
+          <%= link_to 'Login', new_user_session_path %>
+          <%= link_to 'Sign up', new_user_registration_path %>
+        <% end %>
+      </div>
+      <li><%= link_to 'Potions', potions_path, class: 'nav-link' %></li>
+      <li><% if user_signed_in? %>
+    <% if current_user.try(:vendor) %>
+      <!-- Vendor's view of orders -->
+      <li><%= link_to 'Vendor Orders', vendor_dashboard_path, class: 'nav-link' %></li>
+    <% else %>
+      <!-- Regular user's view of orders -->
+      <li><%= link_to 'My Orders', orders_path, class: 'nav-link' %></li>
+    <% end %>
+  <% end %></li>
+      <li><%= link_to 'BrewHub', brew_hub_path, class: 'nav-link' %></li>
+      <li><%= link_to 'Contests', contests_path, class: 'nav-link' %></li>
+      <li><%= link_to 'Help', help_path, class: 'nav-link' %></li>
+      <li><%= button_to 'Log Out', destroy_user_session_path, method: :delete, class: 'nav-link' %></li>
+    </ul>
+    <div class="right-nav">
+      <%= form_with url: potions_path, method: :get, local: true do %>
+        <%= search_field_tag :search, params[:search], placeholder: "Search Potions", id: "search-bar" %>
+        <%= submit_tag "Search"%>
+      <% end %>
+      <%= link_to "HogwartsHome", root_path, class: "nav-link" %>
+      <%= link_to "Cart", cart_path, class: "nav-link" %>
+      
+    <% if cart_items_count > 0 %>
+      <span class="cart-count"><%= cart_items_count %></span>
+    <% end %>
+
+
+      <% if user_signed_in? %>
+    <%= button_to 'Logout', destroy_user_session_path, method: :delete, class: 'nav-link', data: { turbo: false } %>
+  <% else %>
+    <%= link_to 'Login', new_user_session_path, class: 'nav-link' %>
+    <%= link_to 'Sign up', new_user_registration_path, data: { turbo: false }, class: 'nav-link' %>
+  <% end %>
+    </div>
+  </div>
+
+  <main role="main" class="container">
+    <%= render 'shared/flash' %>
+    <%= yield %>
+  </main>
+
+  <script>
+    function toggleMenu() {
+      var menu = document.getElementById('menu');
+      if (menu.style.display === "block") {
+        menu.style.display = "none";
+      } else {
+        menu.style.display = "block";
+      }
+    }
+  </script>
+  <script>
+  document.addEventListener('DOMContentLoaded', function() {
+    var dropdown = document.querySelector('.dropbtn');
+    var dropdownContent = document.querySelector('.dropdown-content');
+
+    // Toggle dropdown on click
+    dropdown.addEventListener('click', function(event) {
+      dropdownContent.style.display = dropdownContent.style.display === 'block' ? 'none' : 'block';
+      event.stopPropagation();
+    });
+
+    // Close dropdown when clicking elsewhere
+    window.addEventListener('click', function(event) {
+      if (event.target !== dropdown) {
+        dropdownContent.style.display = 'none';
+      }
+    });
+  });
+</script>
+
+</body>
+</html>

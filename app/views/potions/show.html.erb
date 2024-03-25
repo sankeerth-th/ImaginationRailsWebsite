@@ -1,0 +1,64 @@
+<div class="potion-details-container">
+  <h2 class="potion-name"><%= @potion.name %></h2>
+
+  <div class="potion-images">
+    <% if @potion.images.attached? %>
+      <% @potion.images.each do |image| %>
+        <%= image_tag image, class: "potion-image-detail" %>
+      <% end %>
+    <% else %>
+      <p class="no-images">No images available.</p>
+    <% end %>
+  </div>
+
+  <div class="potion-info">
+    <p><strong>Effect:</strong> <%= @potion.effect %></p>
+    <p><strong>Source Description:</strong> <%= @potion.source_description %></p>
+    <p><strong>Origin:</strong> <%= @potion.origin %></p>
+    <p><strong>Potency:</strong> <%= @potion.potency %></p>
+    <p><strong>Duration:</strong> <%= @potion.duration %></p>
+    <p><strong>Category:</strong> <%= @potion.category %></p>
+    <p><strong>Recommended Age:</strong> <%= @potion.recommended_age %></p>
+    <p><strong>Price:</strong> <%= @potion.price %></p>
+    <p><strong>Stock:</strong> <%= @potion.stock %></p>
+  </div>
+
+  <% if user_signed_in? && current_user.vendor == @potion.vendor %>
+    <div class="vendor-actions">
+      <%= link_to 'Edit', edit_potion_path(@potion), class: 'button edit-button' %>
+      <%= link_to 'Delete', potion_path(@potion), method: :delete, data: { confirm: 'Are you sure?' }, class: 'button delete-button' %>
+    </div>
+  <% end %>
+
+  <div class="cart-actions">
+    <%= form_with url: cart_items_path, method: :post, class: 'add-to-cart-form', local: true do |form| %>
+      <div class="quantity-selector">
+        <button type="button" class="quantity-change" id="decrease-quantity">-</button>
+        <%= form.number_field :quantity, value: 1, min: 1, id: "quantity", class: 'quantity-input' %>
+        <button type="button" class="quantity-change" id="increase-quantity">+</button>
+      </div>
+      <%= form.hidden_field :potion_id, value: @potion.id %>
+      <%= form.submit "Add to Cart", class: 'button add-to-cart-button' %>
+    <% end %>
+  </div>
+
+  <div class="navigation-actions">
+    <%= link_to 'Back to Search', potions_path, class: 'button back-to-search-button' %>
+  </div>
+  
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      var quantityInput = document.getElementById('quantity');
+      
+      document.getElementById('increase-quantity').addEventListener('click', function() {
+        quantityInput.value = parseInt(quantityInput.value) + 1;
+      });
+
+      document.getElementById('decrease-quantity').addEventListener('click', function() {
+        if (parseInt(quantityInput.value) > 1) {
+          quantityInput.value = parseInt(quantityInput.value) - 1;
+        }
+      });
+    });
+  </script>
+</div>

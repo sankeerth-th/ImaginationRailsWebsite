@@ -1,0 +1,10 @@
+<% if @potion %>
+  <div class="potion-details">
+    <h1><%= @potion.name %></h1>
+    <!-- Display potion details -->
+    <p><%= @potion.effect %></p>
+    <!-- More details here -->
+  </div>
+<% else %>
+  <p>Potion not found.</p>
+<% end %>

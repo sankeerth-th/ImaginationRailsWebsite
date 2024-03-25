@@ -1,0 +1,72 @@
+// app/assets/stylesheets/sessions.scss
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: #f4f4f4; // Change this background as needed
+  }
+  
+  h2 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .form-for-login {
+    background: white;
+    padding: 40px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+  }
+  
+  .field {
+    margin-bottom: 20px;
+  
+    label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+  
+    input[type="email"], input[type="password"] {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      box-sizing: border-box; // Makes sure padding doesn't affect overall width
+    }
+  }
+  
+  .actions {
+    text-align: center;
+  
+    input[type="submit"] {
+      background-color: #007bff; // Change this color as needed
+      color: white;
+      padding: 10px 15px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 16px;
+  
+      &:hover {
+        background-color: darken(#007bff, 10%);
+      }
+    }
+  }
+  
+  .devise-links {
+    margin-top: 20px;
+    text-align: center;
+    a {
+      color: #007bff; // Adjust as needed
+      text-decoration: none;
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+  

@@ -1,0 +1,55 @@
+.table-image {
+    td{
+      vertical-align: middle;
+    }
+  }
+
+
+
+#btn-style {
+  /* Button styling */
+  background-color: #7c3f2d;
+  border-color: #5d2e1f;
+  color: white;
+  padding: 5px 10px;
+  text-decoration: none;
+  border-radius: 4px;
+  margin: 5px;
+  font-size: 0.875rem;
+  flex-grow: 0; /* Prevent buttons from stretching */
+}
+
+#left-btn-groupd {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    width: fit-content;
+    background-color: #7c3f2d;
+    border-color: #5d2e1f;
+    color: white;
+    padding: 5px 10px;
+    margin: 5px;
+    text-decoration: none;
+    border-radius: 4px;
+    font-size: 0.875rem;
+    flex-grow: 0; /* Prevent buttons from stretching */
+  }
+.btn {
+  width: fit-content;
+}
+
+#vote-num 
+  { 
+    color: lightgray;
+    width: fit-content; 
+    padding: 5px;
+    height: fit-content; 
+    background-color: #57286a; 
+    box-sizing: border-box; 
+    border: 2px solid lightgray; 
+    border-radius: 0.5rem;
+} 
+
+
+#left-btn-groupd:hover, #btn-style:hover {
+  background-color: darken(#7c3f2d, 10%);
+}

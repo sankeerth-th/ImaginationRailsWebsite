@@ -1,0 +1,77 @@
+<%= form_with url: potions_path, method: :get, id: 'filter-form', class: 'filter-form', remote: true do |f| %>
+  <div class="dropdown">
+    <button type="button" class="dropbtn">Filter</button>
+    <div class="dropdown-content">
+      <%= f.label :category %>
+      <%= f.select :category, ['Healing', 'Strength', 'Invisibility', 'Love', 'Mind Control'], selected: params[:category], include_blank: true %>
+
+      <%= f.label :potency %>
+      <%= f.select :potency, ['Low', 'Medium', 'High'],selected: params[:potency], include_blank: true %>
+
+      <div class="price-filter">
+        <%= f.label :min_price, 'Min Price' %>
+        <%= f.number_field :min_price, value: params[:min_price], min: 0 %>
+      </div>
+
+      <div class="price-filter">
+        <%= f.label :max_price, 'Max Price' %>
+        <%= f.number_field :max_price,value: params[:max_price], min: 0 %>
+      </div>
+
+      <%= f.submit 'Apply Filters', class: 'btn-filter' %>
+
+      <%= link_to 'Reset Filters', potions_path, remote: true, id: 'reset-filters', class: 'reset-filters-btn' %>
+    </div>
+  </div>
+<% end %>
+
+
+<div class="potions-index">
+  <% @potions.each do |potion| %>
+    <div class="potion-card">
+      <%= link_to potion_path(potion), class: "potion-link" do %>
+        <% if potion.images.attached? %>
+          <%= image_tag potion.images.first, class: "potion-image" %>
+        <% end %>
+        <div class="potion-details">
+          <h3 class="potion-title"><%= potion.name %></h3>
+          <p class="potion-effect"><%= potion.effect %></p>
+          <p class="potion-price">Price: <%= number_to_currency(potion.price) %></p>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+</div>
+
+
+
+
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  var form = document.getElementById('filter-form');
+  var filterElements = form.querySelectorAll('select, input[type=number]');
+  var resetButton = document.getElementById('reset-filters');
+
+  filterElements.forEach(function(element) {
+    element.addEventListener('change', function() {
+      form.requestSubmit();
+    });
+  });
+
+  form.addEventListener('ajax:success', function(event) {
+    var [data, _status, _xhr] = event.detail;
+    document.querySelector('.potions-index').innerHTML = data;
+  });
+
+  form.addEventListener('ajax:error', function(event) {
+    console.log('AJAX request failed');
+  });
+
+  resetButton.addEventListener('click', function(event) {
+    event.preventDefault(); // Prevent the default link behavior
+    form.reset(); // Reset the form fields to their default values
+    form.requestSubmit(); // Submit the form to refresh the potions list
+  });
+});
+</script>

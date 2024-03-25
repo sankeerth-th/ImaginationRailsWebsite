@@ -1,0 +1,97 @@
+<style>
+  .contest-show-page {
+    font-family: 'Cormorant', serif;
+    color: #301934;
+    background-color: #fff5e5;
+    max-width: 800px;
+    margin: auto;
+  }
+
+  .contest-image {
+    width: 100%; /* Full width of the container */
+    max-width: 400px; /* Maximum width */
+    height: auto; /* Maintain aspect ratio */
+    display: block;
+    margin: 20px auto; /* Centering the image */
+  }
+
+  .btn-primary, .btn-success, .btn-secondary, .btn-danger {
+    background-color: #7c3f2d;
+    border-color: #5d2e1f;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: bold;
+  }
+
+  .btn-primary:hover, .btn-success:hover, .btn-secondary:hover, .btn-danger:hover {
+    background-color: darken(#7c3f2d, 10%);
+  }
+
+ .btn-group {
+    display: flex;
+    justify-content: space-around; /* Adjusts the positioning */
+    margin-top: 20px;
+  }
+
+  .btn-group .btn {
+    flex: 1; /* Allows buttons to share the available space */
+    margin: 0 10px; /* Adds some space between buttons */
+  }
+</style>
+
+<div class="contest-show-page">
+  <p style="color: green"><%= notice %></p>
+
+  <h1><%= @contest.title %></h1>
+
+  <% if @contest.image.attached? %>
+    <%= image_tag @contest.image, class: 'contest-image' %>
+  <% end %>
+  <p><%= @contest.desc %></p>
+  <br>
+  <% if @contest.winner_id %>
+  <div>
+  <h3>Winner: </h3>
+    <table class="table table-image" style="color: black;">
+		  <tbody>
+        <tr>
+            <td class="w-25">
+                <% if @winner.image.attached? %>
+                <%= image_tag @winner.image, class: "img-fluid img-thumbnail" %>
+                <% end %>
+            </td>
+            <td>
+            <h4><%= @winner.potion_name %></h4><br>
+            <p><%= @winner.description %></p>
+            <br>
+            <% @num_votes =  @winner.contest_votes.length() %>
+            <div id="vote-num"><%= @num_votes %> Vote<% if @num_votes > 1 or @num_votes == 0 %>s<% end %></div>
+            <br>
+            <div class="btn-group" role="group">
+              
+            </div>
+            </td>
+        </tr>
+		  </tbody>
+		</table>
+  </div>
+  <% end %>
+  <br>
+  <% if user_signed_in? and current_user.vendor and (current_user.vendor == @contest.vendor)%>
+    <div class="btn-group" role="group">
+      <%= link_to "Edit this contest", edit_contest_path(@contest), class: "btn btn-secondary" %>
+      <%= button_to "Delete this contest", @contest, method: :delete, class: "btn btn-danger", id: "destroy-btn-groupd" %>
+    </div>
+  <% end %>
+</div>
+
+
+<div>
+<% if user_signed_in? and @contest.end_date > @now  %>
+    <%= link_to "Submit to this contest", new_contest_contest_entry_path(@contest), class: "btn btn-success" %>
+<% end %>
+<%= link_to "Back to contests", contests_path, class: "btn btn-success" %>
+<%= link_to "View Entries", contest_entries_path(@contest), class: "btn btn-success" %>
+</div>

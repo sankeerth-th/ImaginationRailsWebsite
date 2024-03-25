@@ -1,0 +1,7 @@
+<h1>Vendor Signup</h1>
+
+<%= bootstrap_form_with model: @vendor, url: new_vendor_path, method: :post, data: { turbo: false } do |form| %>
+  <%= form.text_field :business_name, label: "Name of Your Business"%>
+  <%= form.text_area :desc, rows: 16, help: "Tell us about where you're located, what type of potions you brew, and how long you've been brewing.", label: "Description of Your Business"%>
+  <%= form.submit class: 'btn btn-primary my-3' %>
+<% end %>

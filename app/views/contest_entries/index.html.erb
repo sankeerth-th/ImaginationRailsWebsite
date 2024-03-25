@@ -1,0 +1,45 @@
+<h1><%= @contest.title %></h1>
+<div align="center">
+    <%= link_to 'Back To Contest', contest_path(@contest), class: 'btn btn-primary', id: 'btn-style' %>
+    <% if user_signed_in? and @contest.end_date > @now %>
+    <%= link_to 'Submit Your Own Potion', new_contest_entry_path(@contest), class: 'btn btn-primary', id: 'btn-style' %>
+    <% end %>
+</div>
+<div>
+    <table class="table table-image" style="color: black;">
+		  <tbody>
+            <% @entries.each do |entry| %>
+                <tr>
+                    <td class="w-25">
+                        <% if entry.image.attached? %>
+                        <%= image_tag entry.image, class: "img-fluid img-thumbnail" %>
+                        <% end %>
+                    </td>
+                    <td>
+                    <h4><%= entry.potion_name %></h4><br>
+                    <p><%= entry.description %></p>
+                    <br>
+                    <% @num_votes =  entry.contest_votes.length() %>
+                    <div id="vote-num"><%= @num_votes %> Vote<% if @num_votes > 1 or @num_votes == 0 %>s<% end %></div>
+                    <br>
+                    <div class="btn-group" role="group">
+                    <% if user_signed_in? and entry.contest_votes.pluck(:user_id).include? current_user.id%>
+                    <%= button_to 'Remove Vote', vote_path(@contest, entry), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-primary', id: "left-btn-groupd" %>
+                    <% else %>
+                    <%= button_to 'Vote', vote_path(@contest, entry), method: :post, data: { confirm: 'Are you sure?' }, class: 'btn btn-primary', id: "left-btn-groupd" %>
+                    <% end %>
+                    <%= link_to 'View More', contest_entry_path(@contest, entry), class: 'btn btn-primary', id: 'btn-style' %>
+                    <% if user_signed_in? and entry.user == current_user%>
+                        <%= link_to 'Edit Entry', edit_contest_entry_path(@contest, entry), class: 'btn btn-primary', id: 'btn-style' %>
+                    <% end %>
+                    <% if user_signed_in? and @contest.vendor == current_user.vendor and @contest.end_date > @now%>
+                        <%= button_to 'Set Winner', set_contest_winner_path(@contest, entry), method: :patch, data: { confirm: 'Are you sure?' }, class: 'btn btn-primary', id: "btn-style" %>
+                    <% end %>
+                    </div>
+                    </td>
+                </tr>
+         <% end %>
+		    
+		  </tbody>
+		</table>
+</div>

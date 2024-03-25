@@ -1,0 +1,74 @@
+<style>
+  .contest-entry-show {
+    font-family: 'Cormorant', serif;
+    color: #301934;
+    background-color: #fff5e5;
+    padding: 20px;
+    max-width: 800px;
+    margin: auto;
+  }
+
+  .contest-entry-image {
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+  }
+
+  .btn-custom {
+    background-color: #7c3f2d;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: bold;
+    margin-top: 10px;
+  }
+
+  .btn-custom:hover {
+    background-color: darken(#7c3f2d, 10%);
+  }
+
+  .contest-entry-image {
+    max-width: 100%;
+    height: auto;
+    max-height: 300px; /* Adjust the maximum height as needed */
+    display: block;
+    margin: 20px auto; /* Center the image */
+    object-fit: cover; /* Ensures the image is well-fitted */
+    border-radius: 10px;
+  }
+  
+  #btn-group-btn {
+    border-top-left-radius: 5%;
+    border-bottom-left-radius: 5%;
+    border-top-right-radius: 5%;
+    border-bottom-right-radius: 5%;
+  }
+
+</style>
+
+<div class="contest-entry-show">
+  <h1><%= @entry.potion_name %></h1>
+  <% if @entry.image.attached? %>
+    <%= image_tag @entry.image ,class: 'contest-entry-image'%>
+  <% end %>
+
+  <p><strong>Description:</strong> <%= @entry.description %></p>
+  <% @num_votes =  @entry.contest_votes.length() %>
+  <div id="vote-num"><%= @num_votes %> Vote<% if @num_votes > 1 or @num_votes == 0 %>s<% end %></div>
+  <br>
+  <div class="btn-group" role="group">
+  <% if user_signed_in? and @entry.contest_votes.pluck(:user_id).include? current_user.id%>
+  <%= button_to "Remove Vote", vote_path(@contest, @entry), method: :delete, class: "btn btn-custom mx-1", id: "btn-group-btn" %>
+  <% else %>
+  <%= button_to "Vote", vote_path(@contest, @entry), method: :post, class: "btn btn-custom mx-1", id: "btn-group-btn" %>
+  <% end %>
+  <%= link_to 'Back to Entries', contest_entries_path(@contest), class: 'btn btn-custom mx-1', id: "btn-group-btn" %>
+  <%= link_to 'Or Shopping??', potions_path, class: 'btn btn-custom mx-1', id: "btn-group-btn" %>
+  <% if user_signed_in? and @entry.user == current_user%>
+    <%= link_to 'Edit Entry', edit_contest_entry_path(@contest, @entry), class: 'btn btn-custom mx-1', id: "btn-group-btn" %>
+  <% end %>
+  </div>
+  <h5 class="my-5 mx-auto text-center"> Submitted to <%= @contest.title %> at <%= @entry.created_at %> </h5>
+</div>

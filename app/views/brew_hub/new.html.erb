@@ -1,0 +1,39 @@
+<%= stylesheet_link_tag 'brewhub-new-post', media: 'all', 'data-turbolinks-track': 'reload' %>
+<div class="new-post-container">
+  <h1 class="new-post-title">Add a New Post</h1>
+
+  <%= form_with model: @post, url: brew_hub_path, local: true, multipart: true, html: { class: 'new-post-form needs-validation' } do |form| %>
+    <% if @post.errors.any? %>
+      <div class="alert alert-danger">
+        <h4><%= pluralize(@post.errors.count, "error") %> prohibited this post from being saved:</h4>
+        <ul>
+          <% @post.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="form-group">
+      <%= form.label :title, class: 'form-label' %>
+      <%= form.text_field :title, class: 'form-control' %>
+    </div>
+
+    <div class="form-group">
+      <%= form.label :content, class: 'form-label' %>
+      <%= form.text_area :content, rows: 4, class: 'form-control' %>
+    </div>
+
+    <div class="form-group">
+      <%= form.label :image, class: 'form-label' %>
+      <%= form.file_field :image, class: 'form-control-file' %>
+    </div>
+
+    <%= form.submit "Create Post", class: 'btn btn-primary' %>
+
+    <%= link_to 'Cancel', brew_hub_path, class: 'btn btn-outline-secondary' %>
+  </div>
+<% end %>
+
+</div>
+

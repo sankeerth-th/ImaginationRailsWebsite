@@ -1,0 +1,33 @@
+<div class="cart-item-details">
+  <h2>Potion Details</h2>
+
+  <!-- Display Potion Images -->
+  <div class="potion-images">
+    <% if @cart_item.potion.images.attached? %>
+      <% @cart_item.potion.images.each do |image| %>
+        <%= image_tag image, class: "potion-image" %>
+      <% end %>
+    <% else %>
+      <p>No images available.</p>
+    <% end %>
+  </div>
+
+  <!-- Display Potion Information -->
+  <div class="potion-info">
+    <p><strong>Name:</strong> <%= @cart_item.potion.name %></p>
+    <p><strong>Effect:</strong> <%= @cart_item.potion.effect %></p>
+    <p><strong>Description:</strong> <%= @cart_item.potion.source_description %></p>
+    <p><strong>Origin:</strong> <%= @cart_item.potion.origin %></p>
+    <p><strong>Category:</strong> <%= @cart_item.potion.category %></p>
+    <p><strong>Potency:</strong> <%= @cart_item.potion.potency %></p>
+    <p><strong>Price per item:</strong> <%= number_to_currency(@cart_item.potion.price) %></p>
+  </div>
+
+  <h2>Order Details</h2>
+  <div class="order-info">
+    <p><strong>Quantity Ordered:</strong> <%= @cart_item.quantity %></p>
+    <p><strong>Total Price:</strong> <%= number_to_currency(@cart_item.quantity * @cart_item.potion.price) %></p>
+  </div>
+
+  <%= link_to 'Back to Cart', cart_path, class: 'back-to-cart-button' %>
+</div>

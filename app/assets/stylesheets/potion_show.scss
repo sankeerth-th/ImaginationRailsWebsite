@@ -1,0 +1,84 @@
+.potion-details-container {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #f8f0fb;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .potion-name {
+    text-align: center;
+    color: #4A235A;
+    margin-bottom: 20px;
+  }
+  
+  .potion-images {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .potion-image-detail {
+    max-width: 100%;
+    height: auto;
+    max-height: 300px;
+  }
+  
+  .potion-info {
+    color: #333;
+    margin-bottom: 20px;
+  }
+  
+  .vendor-actions, .cart-actions {
+    text-align: center;
+    margin-top: 20px;
+  }
+  
+  .button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    margin: 5px;
+  
+    &.edit-button {
+      background-color: #FFC107;
+    }
+  
+    &.delete-button {
+      background-color: #F44336;
+    }
+  
+    &.add-to-cart-button {
+      background-color: #1E88E5;
+    }
+  }
+  
+  .quantity-selector {
+    display: inline-flex;
+    align-items: center;
+    margin-right: 15px;
+  }
+  
+  .quantity-change {
+    background-color: #4A235A;
+    color: white;
+    border: 1px solid #ccc;
+    padding: 5px 10px;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 4px;
+
+}
+
+.quantity-input {
+  width: 50px;
+  text-align: center;
+  margin: 0 5px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+}

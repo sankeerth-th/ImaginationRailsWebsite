@@ -1,0 +1,49 @@
+// app/assets/stylesheets/edit_post.scss
+
+.edit-post-container {
+    background-color: #fbf8ef; // Light, parchment-like background
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+    margin: 20px auto;
+    font-family: 'Merriweather', serif; // Font with an old-world feel
+  }
+  
+  .edit-post-title {
+    color: #6d4c41; // Earthy, deep color for title
+    text-align: center;
+  }
+  
+  .form-group {
+    margin-bottom: 15px;
+  }
+  
+  .form-label {
+    display: block;
+    margin-bottom: 5px;
+    color: #50394c; // Enchanting color for labels
+  }
+  
+  .form-control {
+    width: 100%;
+    padding: 10px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+  }
+  
+  .btn-primary {
+    background-color: #795548; // Earthy, magical button color
+    color: white;
+    padding: 10px 20px;
+    border-radius: 4px;
+    display: block;
+    width: 100%;
+  }
+  
+  .btn-back {
+    background-color: #4a148c; // Deep, mystical purple
+    color: white;
+    border-radius: 4px;
+  }
+  

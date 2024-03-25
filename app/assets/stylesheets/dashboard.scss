@@ -1,0 +1,84 @@
+// app/assets/stylesheets/dashboard.scss
+
+.vendor-dashboard {
+    padding: 20px;
+    background-color: #f4f4f8; // A light, mystical background color
+    font-family: 'Arial', sans-serif;
+  }
+  
+  .h1, .h2 {
+    color: #4A235A; // Deep purple color for headers
+  }
+  
+  .table-container {
+    overflow-x: auto;
+    margin-bottom: 30px;
+  }
+  
+  .potions-table {
+    width: 100%;
+    border-collapse: collapse;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  .potions-table th {
+    background-color: #6C3483; // Darker purple for table headers
+    color: white;
+    padding: 10px;
+  }
+  
+  .potion-image-cell {
+    width: 60px;
+    text-align: center;
+  }
+  
+  .potion-table-image {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    border-radius: 5px;
+  }
+  
+  .actions-cell {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+  }
+  
+  .edit-btn, .remove-btn, .add-potion-btn {
+    padding: 8px 15px;
+    border: none;
+    border-radius: 4px;
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .edit-btn {
+    background-color: #F4D03F; // Gold color for edit
+  }
+  
+  .remove-btn {
+    background-color: #CB4335; // Red color for remove
+  }
+  
+  .add-potion-btn {
+    background-color: #1ABC9C; // Teal color for adding new potion
+    display: block;
+    width: max-content;
+    margin: 20px auto;
+  }
+  
+  .add-potion-btn:hover, .edit-btn:hover, .remove-btn:hover {
+    opacity: 0.8;
+  }
+  
+  .add-new-potion {
+    text-align: center;
+    margin-top: 30px;
+  }
+  
+  // ... Any other styles you might want to add
+  

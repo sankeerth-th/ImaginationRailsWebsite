@@ -1,0 +1,57 @@
+<div class="header-decoration">✨🔮✨</div>
+<h1>Welcome to Hogwarts Potion Kart</h1>
+<p>Your one-stop shop for all magical potion needs!</p>
+
+<!-- Featured Potions Section -->
+<h2>Featured Potions</h2>
+<div class="featured-potions">
+  <% @random_potions.each do |potion| %>
+    <div class="potion-preview-card">
+      <%= link_to potion_path(potion) do %>
+        <% if potion.images.attached? %>
+          <%= image_tag potion.images.first, class: 'potion-preview-image' %>
+        <% else %>
+          <%= image_tag 'default_potion_image.jpg', class: 'potion-preview-image' %>
+        <% end %>
+        <div class="potion-preview-details">
+          <h3 class="potion-title"><%= potion.name %></h3>
+          <p class="potion-effect"><%= truncate(potion.effect, length: 100) %></p>
+          <p class="potion-price">Price: <%= number_to_currency(potion.price) %></p>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+</div>
+
+<!-- BrewHub Posts and Contests Sections -->
+<div class="bottom-sections">
+  <!-- Latest BrewHub Posts Section -->
+  <div class="latest-posts">
+    <h2>Latest BrewHub Posts</h2>
+    <% @posts.each do |post| %>
+      <div class="post-preview">
+        <h3><%= post.title %></h3>
+        <p><%= truncate(post.content, length: 100) %></p>
+        <%= link_to 'Read More', brew_hub_post_path(post), class: 'btn btn-primary' %>
+      </div>
+    <% end %>
+  </div>
+
+  <!-- Upcoming Contest Section -->
+  <div class="upcoming-contests">
+    <h2>Upcoming Contest</h2>
+    <% if @contests.any? %>
+      <% contest = @contests.first %>
+      <div class="contest-preview">
+        <% if contest.image.attached? %>
+          <%= image_tag contest.image, class: 'contest-image' %>
+        <% end %>
+        <h3><%= contest.title %></h3>
+        <p><%= truncate(contest.desc, length: 100) %></p>
+        <%= link_to 'View Contest', contest_path(contest), class: 'btn btn-secondary' %>
+      </div>
+    <% else %>
+      <p>No upcoming contests.</p>
+    <% end %>
+  </div>
+</div>

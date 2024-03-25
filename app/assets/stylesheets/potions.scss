@@ -1,0 +1,136 @@
+// app/assets/stylesheets/potions.scss
+
+.potions-index {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 20px;
+  }
+  
+  .potion-card {
+    flex: 0 1 calc(33.333% - 20px); /* Three cards per row with spacing */
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .potion-image {
+    width: 100%;
+    height: auto; /* Adjust height automatically to preserve aspect ratio */
+    object-fit: contain; /* Ensures the whole image is visible */
+    transition: transform 0.3s ease;
+  }
+  
+  .potion-card:hover .potion-image {
+    transform: scale(1.1); /* Slight zoom on hover */
+  }
+  
+  .potion-details {
+    padding: 10px;
+    flex-grow: 1; /* Allows text section to fill remaining space */
+  }
+  
+  .potion-link {
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+  
+  .potion-title {
+    font-size: 1.2em;
+    margin: 10px 0 5px;
+    color: #333;
+  }
+  
+  .potion-effect {
+    font-size: 1em;
+    color: #666;
+  }
+  
+ /* General dropdown styling */
+.dropdown {
+  position: relative;
+  display: inline-block;
+  button.dropbtn {
+    background-color: #7c3f2d; /* Updated to match Hogwarts theme */
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1em;
+    &:hover {
+      background-color: darken(#7c3f2d, 10%); /* Darkens the button when hovered */
+    }
+  }
+  .filter-dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #fff8e1; /* Light parchment-like background */
+    color: #301934; /* Text color to match theme */
+    min-width: 200px; /* Adjust as needed */
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+    z-index: 1;
+    border-radius: 4px;
+    padding: 10px;
+    right: 0; /* Aligns the dropdown to the right */
+    form {
+      display: flex;
+      flex-direction: column;
+      .price-filter {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 10px;
+      }
+      label {
+        font-weight: bold;
+        margin-bottom: 5px;
+      }
+      input[type=number],
+      select {
+        padding: 8px;
+        margin-bottom: 10px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+      }
+      input[type=submit] {
+        background-color: #4CAF50;
+        color: white;
+        padding: 10px 15px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        &:hover {
+          background-color: darken(#4CAF50, 10%);
+        }
+
+
+      }
+
+      
+      
+    }
+  }
+  .reset-filters-btn {
+    background-color: #7c3f2d; /* Updated to match theme */
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    &:hover {
+      background-color: darken(#7c3f2d, 10%);
+    }
+  }
+}
+
+/* Show dropdown content on hover */
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+

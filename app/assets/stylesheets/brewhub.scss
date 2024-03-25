@@ -1,0 +1,62 @@
+// app/assets/stylesheets/brewhub.scss
+
+.brewhub-posts {
+    max-width: 800px;
+    margin: 20px auto;
+    font-family: 'Merriweather', serif; // A font with an old-world feel
+  }
+  
+  .post-card {
+    background-color: #faf8ef; // Soft, parchment-like background
+    padding: 20px;
+    margin-bottom: 25px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border-left: 5px solid #6d4c41; // Earthy, mystical accent color
+  }
+  
+  .post-title {
+    color: #50394c; // Dark, enchanting color
+    margin-bottom: 15px;
+    font-size: 1.5em;
+  }
+  
+  .post-image {
+    width: 100px; // Fixed width for images
+    height: 100px; // Fixed height for images
+    object-fit: cover; // Ensure the image covers the area without stretching
+    border-radius: 50%; // Circular images for a whimsical look
+    margin-right: 15px;
+    float: left;
+  }
+  
+  .post-content {
+    color: #333;
+    clear: both;
+    margin-top: 10px;
+  }
+  
+  .btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+  
+    &.btn-reply, &.btn-edit, &.btn-add-new {
+      background-color: #795548; // Earthy, magical button color
+      color: white;
+    }
+  
+    &.btn-edit {
+      background-color: #6c757d; // A softer shade for the edit button
+    }
+  
+    &.btn-add-new {
+      background-color: #4a148c; // Deep, mystical purple
+      margin-top: 20px;
+    }
+  }
+  

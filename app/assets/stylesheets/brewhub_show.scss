@@ -1,0 +1,82 @@
+// app/assets/stylesheets/brewhub.scss
+
+.post-details-container {
+    background: #fbf8ef; // Light, parchment-like background
+    color: #50394c; // Dark, mystical text color
+    font-family: 'Merriweather', serif; // A font with an old-world feel
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    max-width: 800px;
+    margin: 20px auto;
+  }
+  
+  .post-title {
+    color: #6d4c41; // Earthy, deep brown for titles
+    text-align: center;
+    margin-bottom: 15px;
+  }
+  
+  .post-content {
+    margin-bottom: 20px;
+  }
+  
+  .comments-section {
+    margin-top: 30px;
+  }
+  
+  .comments-list .comment {
+    background: #e8eaf6; // Light, mystical blue
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+  }
+  
+  .comment-user {
+    font-weight: bold;
+    color: #3e2723; // Dark, rich color for usernames
+  }
+  
+  .comment-body {
+    margin-top: 5px;
+  }
+  
+  .comment-actions {
+    margin-top: 10px;
+  }
+  
+  .reply-form {
+    margin-top: 20px;
+  }
+  
+  .btn {
+    background-color: #795548; // Earthy, magical button color
+    color: white;
+    padding: 8px 12px;
+    border-radius: 4px;
+    text-decoration: none;
+    display: inline-block;
+    margin: 5px 0;
+    cursor: pointer;
+  
+    &.btn-edit, &.btn-delete, &.btn-add-comment, &.btn-back {
+      background-color: #5d4037; // Darker shade for buttons
+    }
+  
+    &.btn-delete {
+      background-color: #bf360c; // Fiery, intense color for delete
+    }
+  
+    &.btn-back {
+      background-color: #3e2723; // Rich, deep color for back button
+    }
+  }
+  
+  .form-control {
+    background: #fff;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 10px;
+    margin-top: 10px;
+  }
+  
